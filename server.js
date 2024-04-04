@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor Express corriendo en el puerto ${PORT}`);
+});
+
 // Definir la carpeta "assets" como carpeta pública del servidor
 app.use(express.static('assets'));
 
@@ -16,7 +21,7 @@ const nombres = [
     "Brian"
 ];
 
-// Ruta para obtener el arreglo de nombres en formato JSON
+// Ruta 1 para obtener el arreglo de nombres en formato JSON
 app.get("/abracadabra/usuarios", (req, res) => {
     res.json({ usuarios: nombres });
 });
@@ -27,33 +32,28 @@ function validarUsuario(req, res, next) {
     if (nombres.includes(usuario)) {
         next(); // Permitir el paso a la siguiente ruta
     } else {
-        res.sendFile(__dirname + '/assets/who.jpeg'); // Devolver la imagen "who.jpeg" si el usuario no existe
+        res.redirect("/who.jpeg"); // Devolver la imagen "who.jpeg" si el usuario no existe
     }
 }
 
-// Ruta /abracadabra/juego/:usuario que utiliza el middleware para validar el usuario
+// Ruta2 /abracadabra/juego/:usuario que utiliza el middleware para validar el usuario
 app.get('/abracadabra/juego/:usuario', validarUsuario, (req, res) => {
     res.sendFile(__dirname + '/index.html'); // Aquí envia la página HTML correspondiente
 });
 
-// Ruta /abracadabra/conejo/:n que devuelve la imagen del conejo o de Voldemort según el número generado
-app.get("/abracadabra/conejo/:n", (req, res) => {
+// Ruta 3 /abracadabra/conejo/:n que devuelve la imagen del conejo o de Voldemort según el número generado
+app.get("/abracadabra/conejo/:numero", (req, res) => {
     // Paso 2
     const n = Math.floor(Math.random() * (4 - 1)) + 1;
     // Paso 3
     const numero = req.params.numero;
     // Paso 3
     numero == n //si numero es igual a n
-    ? res.send("/assets/conejito.jpg") // signo de interrogacion significa entonces
-    : res.send("/assets/voldemort.jpg"); // dos puntos significan si no
+    ? res.redirect("/conejito.jpg") // entonces
+    : res.redirect("/voldemort.jpg"); // si no
 });
 
-// Ruta genérica para manejar rutas no definidas
+// Ruta 4 genérica para manejar rutas no definidas
 app.get("*", (req, res) => {
     res.status(404).send("Esta página no existe...");
-});
-
-// Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor Express corriendo en el puerto ${PORT}`);
 });
