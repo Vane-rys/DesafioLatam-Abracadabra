@@ -1,0 +1,23 @@
+{
+  "name": "desafio-abracadabra-vanessa-reyes",
+  "version": "1.0.0",
+  "description": "Un servidor Express que sirve un sitio web estático con temática de magia. Presenta cuatro sombreros mágicos y desafía a los usuarios a encontrar el conejo oculto. Incluye rutas para obtener una lista de usuarios, jugar al juego de los sombreros y revelar la imagen del conejo o de Voldemort.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "magia",
+    "sombreros",
+    "conejo",
+    "juego",
+    "express",
+    "servidor"
+  ],
+  "author": "Vanessa Reyes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
